@@ -69,7 +69,22 @@ foreach ($d in @(
     "profiles"
 )) { New-Item -ItemType Directory -Force -Path (Join-Path $Root $d) | Out-Null }
 
-# 6) 健檢
+# 6) 字幕字型：霞鶩文楷 TC（Reels 旅遊題材自動使用；安裝給目前使用者，不需管理員）
+Step "安裝字型 LXGW WenKai TC"
+$fontDir = Join-Path $env:LOCALAPPDATA "Microsoft\Windows\Fonts"
+$regKey = "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Fonts"
+New-Item -ItemType Directory -Force -Path $fontDir | Out-Null
+if (-not (Test-Path $regKey)) { New-Item -Path $regKey -Force | Out-Null }
+foreach ($w in @("Regular", "Medium")) {
+    $file = "LXGWWenKaiTC-$w.ttf"
+    $dest = Join-Path $fontDir $file
+    if (-not (Test-Path $dest)) {
+        Invoke-WebRequest "https://github.com/lxgw/LxgwWenkaiTC/releases/download/v1.522/$file" -OutFile $dest
+    }
+    New-ItemProperty -Path $regKey -Name "LXGW WenKai TC $w (TrueType)" -Value $dest -PropertyType String -Force | Out-Null
+}
+
+# 7) 健檢
 Step "執行健檢"
 Push-Location $Root
 try { & $py src\system_health.py --quick } finally { Pop-Location }
