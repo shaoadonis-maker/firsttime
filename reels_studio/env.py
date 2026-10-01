@@ -65,7 +65,10 @@ def media_ok() -> tuple[bool, str]:
             "print(cv2.__version__)")
     proc = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, timeout=60,
                           creationflags=NOFLAGS)
-    return proc.returncode == 0, (proc.stdout.strip() and "OpenCV " + proc.stdout.strip()) or ""
+    if proc.returncode == 0:
+        return True, "OpenCV " + proc.stdout.strip()
+    lines = [ln for ln in proc.stderr.strip().splitlines() if ln.strip()]
+    return False, lines[-1] if lines else ""
 
 
 def _font_dirs() -> list[Path]:
@@ -100,7 +103,8 @@ def status(ws: str) -> list[dict]:
         {"id": "ffmpeg", "name": "ffmpeg", "why": "轉檔、剪接、燒字幕、混音", "required": True, "ok": bool(ffmpeg),
          "version": _ffmpeg_version(ffmpeg) if ffmpeg else "", **install_info("ffmpeg")},
         {"id": "media", "name": "影像分析套件", "why": "Pillow、numpy、OpenCV：挑開場畫面與畫質檢查",
-         "required": True, "ok": media, "version": media_ver, **install_info("media")},
+         "required": True, "ok": media, "version": media_ver if media else "",
+         "detail": "" if media else media_ver, **install_info("media")},
         {"id": "kit", "name": "video-autopilot-kit", "why": "剪輯規則與品質檢查", "required": True, "ok": has_kit,
          "version": kit.version(ws) if has_kit else "", "updatable": has_kit, **install_info("kit", ws)},
         {"id": "wenkai", "name": "霞鶩文楷 TC 字型", "why": "Reels 旅遊字幕字體", "required": True,

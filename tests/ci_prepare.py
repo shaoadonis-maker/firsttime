@@ -16,9 +16,15 @@ for item in ("kit", "media", "wenkai"):
     job = Job("install:" + item, item, ["install"])
     env.install(item, ws, job)
     print("installed", item)
+    if item == "media":
+        print("\n".join(job.log[-15:]))
 
-status = {i["id"]: i["ok"] for i in env.status(ws)}
+items = env.status(ws)
+status = {i["id"]: i["ok"] for i in items}
 print(status)
+for i in items:
+    if i.get("detail"):
+        print(i["id"], "detail:", i["detail"])
 missing = [k for k in ("python", "ffmpeg", "media", "kit", "wenkai") if not status[k]]
 if missing:
     raise SystemExit("still missing: %s" % missing)
