@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="studio-token" content="{{TOKEN}}">
+<title>卷家 Reels 工作室</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect x=%226%22 y=%222%22 width=%2220%22 height=%2228%22 rx=%224%22 fill=%22%232f4a8a%22/%3E%3Cpath d=%22M13 11v10l8-5z%22 fill=%22%23fff%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="rail">
+    <div class="brand"><b id="brand-name">Reels 工作室</b><span id="brand-sub">IG Reels 9:16</span></div>
+    <nav class="nav" aria-label="主選單">
+      <button data-go="projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span>我的 Reels</span></button>
+      <button data-go="music"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span>音樂庫</span></button>
+      <button data-go="env"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg><span>環境檢查</span></button>
+      <button data-go="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><span>設定</span></button>
+    </nav>
+    <div class="rail-foot">
+      <button class="envbadge" data-go="env" id="envbadge">檢查中…</button>
+      <span class="mono" id="ws-label"></span>
+    </div>
+  </aside>
+  <main id="view" tabindex="-1"><p class="muted">載入中…</p></main>
+</div>
+<div id="layer"></div>
+<div id="toasts" aria-live="polite"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
