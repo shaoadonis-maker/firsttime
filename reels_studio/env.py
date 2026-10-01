@@ -21,7 +21,7 @@ KIT_INSTALLER = ("https://github.com/Hao0321/video-autopilot-kit/releases/latest
 WENKAI_URL = "https://github.com/lxgw/LxgwWenkaiTC/releases/download/v1.522/LXGWWenKaiTC-%s.ttf"
 WENKAI_WEIGHTS = ("Regular", "Medium")
 # Same pins as the kit's requirements-media.txt; used before the kit is installed.
-MEDIA_PINS = ["Pillow==11.3.0", "qrcode==7.4.2", "numpy==2.0.2", "opencv-contrib-python-headless==4.12.0.88"]
+MEDIA_PINS = ["Pillow==11.3.0", "numpy==2.0.2", "opencv-contrib-python-headless==4.12.0.88"]
 NOFLAGS = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 
 
@@ -60,7 +60,7 @@ def _ffmpeg_version(exe: str) -> str:
 
 
 def media_ok() -> tuple[bool, str]:
-    code = ("import PIL, numpy, cv2, qrcode; "
+    code = ("import PIL, numpy, cv2; "
             "assert hasattr(cv2, 'TrackerCSRT_create') or hasattr(getattr(cv2, 'legacy', None), 'TrackerCSRT_create'); "
             "print(cv2.__version__)")
     proc = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, timeout=60,
